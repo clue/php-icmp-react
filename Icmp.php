@@ -8,7 +8,14 @@ use Evenement\EventEmitter;
 use React\EventLoop\LoopInterface;
 use Socket\React\Datagram\Factory;
 
-class Icmp
+/**
+ * ICMP (Internet Control Message Protocol) bindings for reactphp
+ *
+ * @author clue
+ * @link https://github.com/clue/icmp-react
+ * @link http://tools.ietf.org/html/rfc792
+ */
+class Icmp extends EventEmitter
 {
     private $socketFactory;
     private $socket = null;
