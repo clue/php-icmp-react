@@ -100,6 +100,7 @@ class Icmp extends EventEmitter
         $data['payload'] = (string)substr($icmp, $io->getOffset());
 
         $this->emit($data['type'], array($data, $peer));
+        $this->emit('message', array($data, $peer));
     }
 
     public function createMessagePing($id, $seq, $data)
