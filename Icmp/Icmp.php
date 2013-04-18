@@ -1,5 +1,7 @@
 <?php
 
+namespace Icmp;
+
 use Iodophor\Io\StringWriter;
 use Iodophor\Io\StringReader;
 use React\Promise\Deferred;
@@ -7,6 +9,7 @@ use React\Promise\When;
 use Evenement\EventEmitter;
 use React\EventLoop\LoopInterface;
 use Socket\React\Datagram\Factory;
+use \Exception;
 
 /**
  * ICMP (Internet Control Message Protocol) bindings for reactphp
