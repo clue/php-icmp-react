@@ -45,9 +45,21 @@ class Icmp
 
     }
 
+    /**
+     * compute internet checksum
+     *
+     * @param string $data
+     * @return int 16bit checksum integer
+     * @link http://tools.ietf.org/html/rfc1071#section-4.1
+     * @todo check result for odd number of bytes?
+     */
     private function getChecksum($data)
     {
         $bit = unpack('n*', $data);
+
+        // ignore any checksum already set in the message
+        $bit[2] = 0;
+
         $sum = array_sum($bit);
 
         if (strlen($data) % 2) {
@@ -55,10 +67,10 @@ class Icmp
             $sum += $temp[1];
         }
 
-        $sum = ($sum >> 16) + ($sum & 0xffff);
-        $sum += ($sum >> 16);
+        while ($sum >> 16) {
+            $sum = ($sum & 0xffff) + ($sum >> 16);
+        }
 
-        return pack('n*', ~$sum);
+        return (~$sum & 0xffff);
     }
-
 }
