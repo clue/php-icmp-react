@@ -21,9 +21,36 @@ class Icmp
         $this->socketFactory = new Factory($loop);
     }
 
+    /**
+     * send ICMP echo request and wait for ICMP echo response
+     *
+     * @param string $remote remote host or IP address to ping
+     * @return React\Promise\PromiseInterface
+     */
     public function ping($remote)
     {
+        $that = $this;
 
+        return $this->resolve($remote)->then(function ($remote) use ($that) {
+            $id       = $that->getPingId();
+            $sequence = $that->getPingSequence();
+            $data     = $that->getPingData();
+
+            $message = $that->createMessagePing($id, $sequence, $data);
+            $that->sendMessage($message, $remote);
+
+            $deferred = new Deferred();
+
+            $listener = function ($data) use ($deferred, $id, $sequence, &$listener, $that) {
+                if ($data['id'] === $id && $data['sequence'] === $sequence) {
+                    $that->removeListener(Icmp::TYPE_ECHO_RESPONSE, $listener);
+                    $deferred->resolve();
+                }
+            };
+            $that->on(Icmp::TYPE_ECHO_RESPONSE, $listener);
+
+            return $deferred->promise();
+        });
     }
 
     public function getSocket()
@@ -117,6 +144,11 @@ class Icmp
     public function getPingData()
     {
         return 'ping'; // . mt_rand(0,9);
+    }
+
+    private function resolve($host)
+    {
+        return When::resolve($host);
     }
 
     /**
