@@ -40,9 +40,26 @@ class Icmp
 
     }
 
-    public function createMessage($type, $code, $header = null, $body = null)
+    public function createMessage($type, $code, $header, $payload = '')
     {
+        if (strlen($header) !== 4) {
+            throw new Exception();
+        }
+        $io = new StringWriter();
+        $io->writeInt8($type);
+        $io->writeInt8($code);
+        $io->writeInt16BE(0);
 
+        $message = $io->toString() . $header . $payload;
+
+        $checksum = $this->getChecksum($message);
+
+        $io->setOffset(2);
+        $io->writeInt16BE($checksum);
+
+        $message = $io->toString() . $header . $payload;
+
+        return $message;
     }
 
     /**
