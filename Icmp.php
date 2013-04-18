@@ -62,6 +62,16 @@ class Icmp extends EventEmitter
         });
     }
 
+    public function pause()
+    {
+        $this->socket->pause();
+    }
+
+    public function resume()
+    {
+        $this->socket->resume();
+    }
+
     public function handleMessage($message, $peer)
     {
         $ip = substr($message, 0, 20);
