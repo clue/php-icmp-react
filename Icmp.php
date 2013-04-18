@@ -17,15 +17,17 @@ use Socket\React\Datagram\Factory;
  */
 class Icmp extends EventEmitter
 {
-    private $socketFactory;
-    private $socket = null;
+    /** @var Socket\React\Datagram\Datagram */
+    private $socket;
 
     const TYPE_ECHO_REQUEST = 8;
     const TYPE_ECHO_RESPONSE = 0;
 
     public function __construct(LoopInterface $loop)
     {
-        $this->socketFactory = new Factory($loop);
+        $factory = new Factory($loop);
+        $this->socket = $factory->createIcmp4();
+        $this->socket->on('message', array($this, 'handleMessage'));
     }
 
     /**
@@ -58,15 +60,6 @@ class Icmp extends EventEmitter
 
             return $deferred->promise();
         });
-    }
-
-    public function getSocket()
-    {
-        if ($this->socket === null) {
-            $this->socket = $this->socketFactory->createIcmp4();
-            $this->socket->on('message', array($this, 'handleMessage'));
-        }
-        return $this->socket;
     }
 
     public function handleMessage($message, $peer)
@@ -135,7 +128,7 @@ class Icmp extends EventEmitter
         //         $hex = new Hexdump();
         //         $hex->dump($message);
 
-        $this->getSocket()->send($message, $remoteAddress);
+        $this->socket->send($message, $remoteAddress);
     }
 
     public function getPingId()
