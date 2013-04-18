@@ -1,0 +1,10 @@
+{
+    "require": {
+        "clue/socket-react": "dev-master",
+        "e-butik/iodophor": "1.*"
+    },
+    "autoload": {
+        "classmap": [""]
+    },
+    "bin": ["bin/ping.php"]
+}
