@@ -95,6 +95,15 @@ class Icmp
         return $message;
     }
 
+    public function sendMessage($message, $remoteAddress)
+    {
+        //         echo 'send to ' . $remoteAddress . PHP_EOL;
+        //         $hex = new Hexdump();
+        //         $hex->dump($message);
+
+        $this->getSocket()->send($message, $remoteAddress);
+    }
+
     /**
      * compute internet checksum
      *
