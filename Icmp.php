@@ -37,7 +37,32 @@ class Icmp
 
     public function handleMessage($message, $peer)
     {
+        $ip = substr($message, 0, 20);
+        $icmp = substr($message, 20);
 
+//         echo 'received from ' . $peer . PHP_EOL;
+//         $hex = new Hexdump();
+//         echo $hex->dump($icmp);
+
+        $data = array();
+        $io = new StringReader($icmp);
+        $data['type'] = $io->readUInt8();
+        $data['code'] = $io->readUInt8();
+        $data['checksum'] = $io->readUInt16BE();
+
+        $checksum = $this->getChecksum($icmp);
+        if ($checksum !== $data['checksum']) {
+//             var_dump('DROP! Checksum invalid! received', $data['checksum'], 'calculated', $checksum);
+        }
+
+        if ($data['type'] === self::TYPE_ECHO_REQUEST || $data['type'] === self::TYPE_ECHO_RESPONSE) {
+            $data['id'] = $io->readUInt16BE();
+            $data['sequence'] = $io->readUInt16BE();
+        }
+
+        $data['payload'] = (string)substr($icmp, $io->getOffset());
+
+        $this->emit($data['type'], array($data, $peer));
     }
 
     public function createMessage($type, $code, $header, $payload = '')
