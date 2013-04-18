@@ -104,6 +104,21 @@ class Icmp
         $this->getSocket()->send($message, $remoteAddress);
     }
 
+    public function getPingId()
+    {
+        return mt_rand(0, 65535);
+    }
+
+    public function getPingSequence()
+    {
+        return mt_rand(0, 65535);
+    }
+
+    public function getPingData()
+    {
+        return 'ping'; // . mt_rand(0,9);
+    }
+
     /**
      * compute internet checksum
      *
