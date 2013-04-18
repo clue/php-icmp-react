@@ -12,7 +12,7 @@ if ($remote === null) {
 
 $loop = React\EventLoop\Factory::create();
 
-$icmp = new Icmp($loop);
+$icmp = new Icmp\Icmp($loop);
 
 echo 'Pinging "' . $remote . '"...' . PHP_EOL;
 $start = microtime(true);
