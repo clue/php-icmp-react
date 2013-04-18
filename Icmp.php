@@ -65,6 +65,14 @@ class Icmp
         $this->emit($data['type'], array($data, $peer));
     }
 
+    public function createMessagePing($id, $seq, $data)
+    {
+        $io = new StringWriter();
+        $io->writeInt16BE($id);
+        $io->writeInt16BE($seq);
+        return $this->createMessage(self::TYPE_ECHO_REQUEST, 0, $io->toString(), $data);
+    }
+
     public function createMessage($type, $code, $header, $payload = '')
     {
         if (strlen($header) !== 4) {
