@@ -93,11 +93,15 @@ class Message
      *
      * @return int 16bit checksum integer
      * @link http://tools.ietf.org/html/rfc1071#section-4.1
-     * @todo check result for odd number of bytes?
      */
     public function getChecksumCalculated()
     {
         $data  = $this->getMessagePacket();
+
+        // odd length => append null byte
+        if (strlen($data) % 2) {
+            $data .= "\x00";
+        }
 
         $bit = unpack('n*', $data);
 
@@ -105,11 +109,6 @@ class Message
         $bit[2] = 0;
 
         $sum = array_sum($bit);
-
-        if (strlen($data) % 2) {
-            $temp = unpack('C*', $data[strlen($data) - 1]);
-            $sum += $temp[1];
-        }
 
         while ($sum >> 16) {
             $sum = ($sum & 0xffff) + ($sum >> 16);
