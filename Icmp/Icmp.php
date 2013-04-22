@@ -2,6 +2,8 @@
 
 namespace Icmp;
 
+use Icmp\MessageFactory;
+use Icmp\Message;
 use Iodophor\Io\StringWriter;
 use Iodophor\Io\StringReader;
 use React\Promise\Deferred;
@@ -23,14 +25,15 @@ class Icmp extends EventEmitter
     /** @var Socket\React\Datagram\Datagram */
     private $socket;
 
-    const TYPE_ECHO_REQUEST = 8;
-    const TYPE_ECHO_RESPONSE = 0;
+    private $messageFactory;
 
     public function __construct(LoopInterface $loop)
     {
         $factory = new Factory($loop);
         $this->socket = $factory->createIcmp4();
         $this->socket->on('message', array($this, 'handleMessage'));
+
+        $this->messageFactory = new MessageFactory();
     }
 
     /**
@@ -42,26 +45,14 @@ class Icmp extends EventEmitter
     public function ping($remote)
     {
         $that = $this;
+        $messageFactory = $this->messageFactory;
 
-        return $this->resolve($remote)->then(function ($remote) use ($that) {
-            $id       = $that->getPingId();
-            $sequence = $that->getPingSequence();
-            $data     = $that->getPingData();
+        return $this->resolve($remote)->then(function ($remote) use ($that, $messageFactory) {
+            $ping = $messageFactory->createMessagePing();
 
-            $message = $that->createMessagePing($id, $sequence, $data);
-            $that->sendMessage($message, $remote);
+            $that->sendMessage($ping, $remote);
 
-            $deferred = new Deferred();
-
-            $listener = function ($data) use ($deferred, $id, $sequence, &$listener, $that) {
-                if ($data['id'] === $id && $data['sequence'] === $sequence) {
-                    $that->removeListener(Icmp::TYPE_ECHO_RESPONSE, $listener);
-                    $deferred->resolve();
-                }
-            };
-            $that->on(Icmp::TYPE_ECHO_RESPONSE, $listener);
-
-            return $deferred->promise();
+            return $ping->promisePong($that);
         });
     }
 
@@ -84,113 +75,33 @@ class Icmp extends EventEmitter
 //         $hex = new Hexdump();
 //         echo $hex->dump($icmp);
 
-        $data = array();
-        $io = new StringReader($icmp);
-        $data['type'] = $io->readUInt8();
-        $data['code'] = $io->readUInt8();
-        $data['checksum'] = $io->readUInt16BE();
-
-        $checksum = $this->getChecksum($icmp);
-        if ($checksum !== $data['checksum']) {
-//             var_dump('DROP! Checksum invalid! received', $data['checksum'], 'calculated', $checksum);
+        try {
+            $message = $this->messageFactory->createFromString($icmp);
+        }
+        catch (Exception $ignore) {
+            return;
         }
 
-        if ($data['type'] === self::TYPE_ECHO_REQUEST || $data['type'] === self::TYPE_ECHO_RESPONSE) {
-            $data['id'] = $io->readUInt16BE();
-            $data['sequence'] = $io->readUInt16BE();
+        $checksum = $message->getChecksumCalculated();
+        if ($checksum !== $message->getChecksum()) {
+            //             var_dump('DROP! Checksum invalid! received', $data['checksum'], 'calculated', $checksum);
         }
 
-        $data['payload'] = (string)substr($icmp, $io->getOffset());
-
-        $this->emit($data['type'], array($data, $peer));
-        $this->emit('message', array($data, $peer));
+        $this->emit($message->getType(), array($message, $peer));
+        $this->emit('message', array($message, $peer));
     }
 
-    public function createMessagePing($id, $seq, $data)
-    {
-        $io = new StringWriter();
-        $io->writeInt16BE($id);
-        $io->writeInt16BE($seq);
-        return $this->createMessage(self::TYPE_ECHO_REQUEST, 0, $io->toString(), $data);
-    }
-
-    public function createMessage($type, $code, $header, $payload = '')
-    {
-        if (strlen($header) !== 4) {
-            throw new Exception();
-        }
-        $io = new StringWriter();
-        $io->writeInt8($type);
-        $io->writeInt8($code);
-        $io->writeInt16BE(0);
-
-        $message = $io->toString() . $header . $payload;
-
-        $checksum = $this->getChecksum($message);
-
-        $io->setOffset(2);
-        $io->writeInt16BE($checksum);
-
-        $message = $io->toString() . $header . $payload;
-
-        return $message;
-    }
-
-    public function sendMessage($message, $remoteAddress)
+    public function sendMessage(Message $message, $remoteAddress)
     {
         //         echo 'send to ' . $remoteAddress . PHP_EOL;
         //         $hex = new Hexdump();
         //         $hex->dump($message);
 
-        $this->socket->send($message, $remoteAddress);
-    }
-
-    public function getPingId()
-    {
-        return mt_rand(0, 65535);
-    }
-
-    public function getPingSequence()
-    {
-        return mt_rand(0, 65535);
-    }
-
-    public function getPingData()
-    {
-        return 'ping'; // . mt_rand(0,9);
+        $this->socket->send($message->getMessagePacket(), $remoteAddress);
     }
 
     private function resolve($host)
     {
         return When::resolve($host);
-    }
-
-    /**
-     * compute internet checksum
-     *
-     * @param string $data
-     * @return int 16bit checksum integer
-     * @link http://tools.ietf.org/html/rfc1071#section-4.1
-     * @todo check result for odd number of bytes?
-     */
-    private function getChecksum($data)
-    {
-        $bit = unpack('n*', $data);
-
-        // ignore any checksum already set in the message
-        $bit[2] = 0;
-
-        $sum = array_sum($bit);
-
-        if (strlen($data) % 2) {
-            $temp = unpack('C*', $data[strlen($data) - 1]);
-            $sum += $temp[1];
-        }
-
-        while ($sum >> 16) {
-            $sum = ($sum & 0xffff) + ($sum >> 16);
-        }
-
-        return (~$sum & 0xffff);
     }
 }
