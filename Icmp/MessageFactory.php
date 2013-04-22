@@ -62,6 +62,6 @@ class MessageFactory
 
     protected function getPingData()
     {
-        return 'ping'; // . mt_rand(0,9);
+        return 'ping' . mt_rand(0,9);
     }
 }
