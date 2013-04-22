@@ -10,7 +10,7 @@ use \Exception;
 class Message
 {
     const TYPE_ECHO_REQUEST = 8;
-    const TYPE_ECHO_RESPONSE = 0;
+    const TYPE_ECHO_REPLY = 0;
 
     private $type;
 
@@ -131,11 +131,11 @@ class Message
 
         $listener = function (Message $pong) use ($deferred, $id, $sequence, &$listener, $icmp) {
             if ($pong->getPingId() === $id && $pong->getPingSequence() === $sequence) {
-                $icmp->removeListener(Message::TYPE_ECHO_RESPONSE, $listener);
+                $icmp->removeListener(Message::TYPE_ECHO_REPLY, $listener);
                 $deferred->resolve();
             }
         };
-        $icmp->on(Message::TYPE_ECHO_RESPONSE, $listener);
+        $icmp->on(Message::TYPE_ECHO_REPLY, $listener);
 
         return $deferred->promise();
     }

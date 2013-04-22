@@ -47,7 +47,7 @@ class MessageFactory
             throw new InvalidArgumentException();
         }
 
-        return new Message(Message::TYPE_ECHO_RESPONSE, 0, null, $ping->getHeader(), $ping->getPayload());
+        return new Message(Message::TYPE_ECHO_REPLY, 0, null, $ping->getHeader(), $ping->getPayload());
     }
 
     protected function getPingId()
