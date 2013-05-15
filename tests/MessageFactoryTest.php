@@ -5,6 +5,18 @@ use Icmp\Message;
 
 class MessageFactoryTest extends TestCase
 {
+
+    /**
+     *
+     * @var MessageFactory
+     */
+    private $factory;
+
+    public function setUp()
+    {
+        $this->factory = new MessageFactory();
+    }
+
     public function testCreateFromString()
     {
         $string = "\x08\x00\x7d\x4b\x00\x00\x00\x00PingHost";
@@ -13,9 +25,7 @@ class MessageFactoryTest extends TestCase
         //               code  |       id      |    payload+
         //                    checksum        sequence
 
-        $factory = new MessageFactory();
-
-        $message = $factory->createFromString($string);
+        $message = $this->factory->createFromString($string);
         $this->assertInstanceOf('Icmp\Message', $message);
 
         $this->assertEquals(Message::TYPE_ECHO_REQUEST, $message->getType());
@@ -31,11 +41,18 @@ class MessageFactoryTest extends TestCase
         $this->assertEquals($string, $message->getMessagePacket());
     }
 
+//     public function testCreateFromStringFailsForInvalidMessage()
+//     {
+//         $string = "?";
+
+//         $factory = new MessageFactory();
+
+//         $message = $factory->createFromString($string);
+//     }
+
     public function testCreateMessagePing()
     {
-        $factory = new MessageFactory();
-
-        $message = $factory->createMessagePing();
+        $message = $this->factory->createMessagePing();
 
         $this->assertInstanceOf('Icmp\Message', $message);
 
@@ -53,9 +70,7 @@ class MessageFactoryTest extends TestCase
      */
     public function testCreateMessagePong(Message $ping)
     {
-        $factory = new MessageFactory();
-
-        $message = $factory->createMessagePong($ping);
+        $message = $this->factory->createMessagePong($ping);
 
         $this->assertInstanceOf('Icmp\Message', $message);
 
@@ -76,8 +91,6 @@ class MessageFactoryTest extends TestCase
     {
         $pingInvalid = new Message(1, 2, 3, 4);
 
-        $factory = new MessageFactory();
-
-        $factory->createMessagePong($pingInvalid);
+        $this->factory->createMessagePong($pingInvalid);
     }
 }
