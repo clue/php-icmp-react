@@ -1,0 +1,13 @@
+<phpunit bootstrap="tests/bootstrap.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="ICMP test suite">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./Icmp</directory>
+        </whitelist>
+    </filter>
+</phpunit>
