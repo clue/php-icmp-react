@@ -8,17 +8,27 @@ class MessageFactoryTest extends TestCase
     public function testCreateFromString()
     {
         $string = "\x08\x00\x7d\x4b\x00\x00\x00\x00PingHost";
+        //           |    |   \  /    \  /    \  / \  ____/
+        //          type  |    \/      \/      \/   \/
+        //               code  |       id      |    payload+
+        //                    checksum        sequence
 
         $factory = new MessageFactory();
 
         $message = $factory->createFromString($string);
-
         $this->assertInstanceOf('Icmp\Message', $message);
 
         $this->assertEquals(Message::TYPE_ECHO_REQUEST, $message->getType());
+        $this->assertEquals(0, $message->getCode());
         $this->assertTrue($message->isChecksumValid());
+
+        $this->assertEquals(0, $message->getHeader());
+        $this->assertEquals(0, $message->getPingId());
         $this->assertEquals(0, $message->getPingSequence());
+
         $this->assertEquals('PingHost', $message->getPayload());
+
+        $this->assertEquals($string, $message->getMessagePacket());
     }
 
     public function testCreateMessagePing()
