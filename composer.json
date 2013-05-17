@@ -1,4 +1,8 @@
 {
+    "name": "clue/icmp-react",
+    "description": "Simple async lowlevel ICMP (ping) messages for react",
+    "keywords": ["icmp", "ping", "echo request", "socket", "network", "diagnose"],
+    "homepage": "https://github.com/clue/icmp-react",
     "require": {
         "clue/socket-react": "dev-master",
         "e-butik/iodophor": "1.*"
