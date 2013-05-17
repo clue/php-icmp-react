@@ -67,9 +67,19 @@ class Message
         // return _last_ 16bits of headerData
     }
 
+    public function getHeaderPointer()
+    {
+        return (($this->header >> 24) & 0xFF);
+    }
+
     public function getPayload()
     {
         return $this->payload;
+    }
+
+    public function getLength()
+    {
+        return 8 + strlen($this->payload);
     }
 
     public function getMessagePacket()
