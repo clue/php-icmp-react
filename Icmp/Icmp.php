@@ -40,19 +40,22 @@ class Icmp extends EventEmitter
      * send ICMP echo request and wait for ICMP echo response
      *
      * @param string $remote remote host or IP address to ping
-     * @return React\Promise\PromiseInterface
+     * @return React\Promise\PromiseInterface resolves with ping round trip time (RTT) in seconds or rejects with Exception
      */
     public function ping($remote)
     {
-        $that = $this;
+        $that           = $this;
         $messageFactory = $this->messageFactory;
+        $start          = microtime(true);
 
-        return $this->resolve($remote)->then(function ($remote) use ($that, $messageFactory) {
+        return $this->resolve($remote)->then(function ($remote) use ($that, $messageFactory, $start) {
             $ping = $messageFactory->createMessagePing();
 
             $that->sendMessage($ping, $remote);
 
-            return $ping->promisePong($that);
+            return $ping->promisePong($that)->then(function () use ($start) {
+                return max(microtime(true) - $start, 0);
+            });
         });
     }
 

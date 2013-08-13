@@ -15,11 +15,10 @@ $loop = React\EventLoop\Factory::create();
 $icmp = new Icmp\Icmp($loop);
 
 echo 'Pinging "' . $remote . '"...' . PHP_EOL;
-$start = microtime(true);
-$icmp->ping($remote)->then(function () use ($start, $icmp) {
-    echo 'Success after ' . round(microtime(true) - $start, 3) . 's' . PHP_EOL;
+$icmp->ping($remote)->then(function ($time) use ($icmp) {
+    echo 'Success after ' . round($time, 3) . 's' . PHP_EOL;
     $icmp->pause();
-}, function ($error) {
+}, function (Exception $error) {
     echo 'Error: ' . $error->getMessage() . PHP_EOL;
     exit(1);
 });
