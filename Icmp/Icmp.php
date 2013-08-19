@@ -12,7 +12,7 @@ use Evenement\EventEmitter;
 use React\EventLoop\LoopInterface;
 use Socket\React\Datagram\Factory;
 use \Exception;
-
+use Clue\Promise\React\Timeout;
 /**
  * ICMP (Internet Control Message Protocol) bindings for reactphp
  *
@@ -27,8 +27,12 @@ class Icmp extends EventEmitter
 
     private $messageFactory;
 
+    private $loop;
+
     public function __construct(LoopInterface $loop)
     {
+        $this->loop = $loop;
+
         $factory = new Factory($loop);
         $this->socket = $factory->createIcmp4();
         $this->socket->on('message', array($this, 'handleMessage'));
@@ -39,16 +43,17 @@ class Icmp extends EventEmitter
     /**
      * send ICMP echo request and wait for ICMP echo response
      *
-     * @param string $remote remote host or IP address to ping
+     * @param string     $remote  remote host or IP address to ping
+     * @param null|float $timeout maximum time in seconds to wait to receive pong, or null = no timeout
      * @return React\Promise\PromiseInterface resolves with ping round trip time (RTT) in seconds or rejects with Exception
      */
-    public function ping($remote)
+    public function ping($remote, $timeout = null)
     {
         $that           = $this;
         $messageFactory = $this->messageFactory;
         $start          = microtime(true);
 
-        return $this->resolve($remote)->then(function ($remote) use ($that, $messageFactory, $start) {
+        $promise = $this->resolve($remote)->then(function ($remote) use ($that, $messageFactory, $start) {
             $ping = $messageFactory->createMessagePing();
 
             $that->sendMessage($ping, $remote);
@@ -57,6 +62,12 @@ class Icmp extends EventEmitter
                 return max(microtime(true) - $start, 0);
             });
         });
+
+        if ($timeout !== null) {
+            $promise = new Timeout($promise, $this->loop, $timeout);
+        }
+
+        return $promise;
     }
 
     public function pause()
