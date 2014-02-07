@@ -1,14 +1,8 @@
-#!/usr/bin/env php
 <?php
 
-(@include_once __DIR__.'/../vendor/autoload.php') OR (print('ERROR: Installation incomplete, please see README' . PHP_EOL) AND exit(1));
+include_once __DIR__.'/../vendor/autoload.php';
 
-$remote = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : null;
-
-if ($remote === null) {
-    echo 'No remote target given' . PHP_EOL;
-    exit(1);
-}
+$remote = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'github.com';
 
 $timeout = 3.0;
 
