@@ -126,27 +126,4 @@ class Message
 
         return (~$sum & 0xffff);
     }
-
-    public function promisePong(Icmp $icmp)
-    {
-        if ($this->type !== self::TYPE_ECHO_REQUEST) {
-            throw new Exception('This message has to be of an ECHO_REQUEST (ping) in order to be able to wait for an ECHO_RESPONSE (pong)');
-        }
-
-        $deferred = new Deferred();
-
-        $id       = $this->getPingId();
-        $sequence = $this->getPingSequence();
-        // TODO: check payload
-
-        $listener = function (Message $pong) use ($deferred, $id, $sequence, &$listener, $icmp) {
-            if ($pong->getPingId() === $id && $pong->getPingSequence() === $sequence) {
-                $icmp->removeListener(Message::TYPE_ECHO_REPLY, $listener);
-                $deferred->resolve();
-            }
-        };
-        $icmp->on(Message::TYPE_ECHO_REPLY, $listener);
-
-        return $deferred->promise();
-    }
 }

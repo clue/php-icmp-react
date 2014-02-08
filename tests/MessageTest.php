@@ -30,21 +30,4 @@ class MessageTest extends TestCase
         $this->assertNotNull($message->getChecksum());
         $this->assertTrue($message->isChecksumValid());
     }
-
-
-    /**
-     * asdasd
-     *
-     * @expectedException Exception
-     */
-    public function testPongInvalid()
-    {
-        $message = new Message(1, 2, 3, 4);
-
-        $loop = React\EventLoop\Factory::create();
-
-        $icmp = new Icmp($loop);
-
-        $message->promisePong($icmp);
-    }
 }

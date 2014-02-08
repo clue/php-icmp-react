@@ -13,6 +13,8 @@ use React\EventLoop\LoopInterface;
 use Socket\React\Datagram\Factory;
 use \Exception;
 use Clue\Promise\React\Timeout;
+use React\EventLoop\Timer\Timer;
+
 /**
  * ICMP (Internet Control Message Protocol) bindings for reactphp
  *
@@ -43,31 +45,75 @@ class Icmp extends EventEmitter
     /**
      * send ICMP echo request and wait for ICMP echo response
      *
-     * @param string     $remote  remote host or IP address to ping
-     * @param null|float $timeout maximum time in seconds to wait to receive pong, or null = no timeout
+     * @param string $remote  remote host or IP address to ping
+     * @param float  $timeout maximum time in seconds to wait to receive pong
      * @return React\Promise\PromiseInterface resolves with ping round trip time (RTT) in seconds or rejects with Exception
      */
-    public function ping($remote, $timeout = null)
+    public function ping($remote, $timeout = 5.0)
     {
         $that           = $this;
         $messageFactory = $this->messageFactory;
+        $listener       = null;
         $start          = microtime(true);
 
-        $promise = $this->resolve($remote)->then(function ($remote) use ($that, $messageFactory, $start) {
+        $result = new Deferred();
+
+        $timer = $this->loop->addTimer($timeout, function(Timer $timer) use ($that, $result, &$listener) {
+            if ($listener) {
+                $that->removeListener(Message::TYPE_ECHO_REPLY, $listener);
+            }
+
+            $result->reject(new Exception('Timed out after ' . $timer->getInterval() . ' seconds'));
+        });
+
+        $promise = $this->resolve($remote)->then(function ($remote) use (
+            $that,
+            $messageFactory,
+            $start,
+            $timer,
+            $result,
+            &$listener
+        ) {
+            if (!$timer->isActive()) {
+                // timeout occured while resolving hostname => already canceled, so don't even send a message
+                return;
+            }
+
             $ping = $messageFactory->createMessagePing();
 
             $that->sendMessage($ping, $remote);
 
-            return $ping->promisePong($that)->then(function () use ($start) {
-                return max(microtime(true) - $start, 0);
-            });
+            $id       = $ping->getPingId();
+            $sequence = $ping->getPingSequence();
+            // TODO: check payload
+
+            $listener = function (Message $pong) use (
+                $id,
+                $sequence,
+                &$listener,
+                $that,
+                $result,
+                $timer,
+                $start
+            ) {
+                if ($pong->getPingId() === $id && $pong->getPingSequence() === $sequence) {
+                    $that->removeListener(Message::TYPE_ECHO_REPLY, $listener);
+                    $timer->cancel();
+
+                    $time = microtime(true) - $start;
+                    if ($time < 0) {
+                        $time = 0;
+                    } elseif ($time > $timer->getInterval()) {
+                        $time = $timeout;
+                    }
+
+                    $result->resolve($time);
+                }
+            };
+            $that->on(Message::TYPE_ECHO_REPLY, $listener);
         });
 
-        if ($timeout !== null) {
-            $promise = new Timeout($promise, $this->loop, $timeout);
-        }
-
-        return $promise;
+        return $result->promise();
     }
 
     public function pause()
