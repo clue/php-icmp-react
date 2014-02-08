@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "53e03393c1f09b138e772e5e3979ac51",
+    "hash": "f82ac8c704666c9232aa19a40c3bf88c",
     "packages": [
         {
             "name": "clue/datagram",
@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/datagram.git",
-                "reference": "v0.2.0"
+                "reference": "c49163afa139ac2e686090fe98de0678b9d1f2e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/datagram/zipball/v0.2.0",
-                "reference": "v0.2.0",
+                "url": "https://api.github.com/repos/clue/datagram/zipball/c49163afa139ac2e686090fe98de0678b9d1f2e8",
+                "reference": "c49163afa139ac2e686090fe98de0678b9d1f2e8",
                 "shasum": ""
             },
             "require": {
@@ -47,43 +47,6 @@
                 "udp"
             ],
             "time": "2013-04-16 10:35:01"
-        },
-        {
-            "name": "clue/promise-react",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/clue/promise-react.git",
-                "reference": "79fac7bf5f927c7735246dfbf7dbbc05c4e299fe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/clue/promise-react/zipball/79fac7bf5f927c7735246dfbf7dbbc05c4e299fe",
-                "reference": "79fac7bf5f927c7735246dfbf7dbbc05c4e299fe",
-                "shasum": ""
-            },
-            "require": {
-                "react/event-loop": "0.3.*",
-                "react/promise": "~1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Clue": "src/"
-                }
-            },
-            "description": "Timeout promise",
-            "homepage": "https://github.com/clue/promise-react",
-            "keywords": [
-                "diagnose",
-                "promise",
-                "timeout"
-            ],
-            "support": {
-                "source": "https://github.com/clue/promise-react/tree/master",
-                "issues": "https://github.com/clue/promise-react/issues"
-            },
-            "time": "2013-08-13 14:31:24"
         },
         {
             "name": "clue/socket-raw",
@@ -137,12 +100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/socket-react.git",
-                "reference": "574ef98f17de748113044e8ec31d8383a21532e7"
+                "reference": "4967532780bd434d3c3ee8ae22608334b74ce5ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/socket-react/zipball/574ef98f17de748113044e8ec31d8383a21532e7",
-                "reference": "574ef98f17de748113044e8ec31d8383a21532e7",
+                "url": "https://api.github.com/repos/clue/socket-react/zipball/4967532780bd434d3c3ee8ae22608334b74ce5ee",
+                "reference": "4967532780bd434d3c3ee8ae22608334b74ce5ee",
                 "shasum": ""
             },
             "require": {
@@ -166,7 +129,7 @@
             ],
             "description": "Binding for raw sockets (ext-sockets) in reactphp",
             "homepage": "https://github.com/clue/socket-react",
-            "time": "2013-05-14 09:32:48"
+            "time": "2014-02-02 16:57:22"
         },
         {
             "name": "e-butik/iodophor",
@@ -246,17 +209,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/cache.git",
-                "reference": "v0.3.2"
+                "reference": "a821f4318e38fc7efd02d81698fcee9d3d34dafe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/cache/zipball/v0.3.2",
-                "reference": "v0.3.2",
+                "url": "https://api.github.com/repos/reactphp/cache/zipball/a821f4318e38fc7efd02d81698fcee9d3d34dafe",
+                "reference": "a821f4318e38fc7efd02d81698fcee9d3d34dafe",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
-                "react/promise": ">=1.0,<2.0"
+                "react/promise": "~1.0"
             },
             "type": "library",
             "extra": {
@@ -286,18 +249,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/dns.git",
-                "reference": "v0.3.2"
+                "reference": "c8c9c57750cb24e8f7b87bc62fee10750f1f9fbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/dns/zipball/v0.3.2",
-                "reference": "v0.3.2",
+                "url": "https://api.github.com/repos/reactphp/dns/zipball/c8c9c57750cb24e8f7b87bc62fee10750f1f9fbf",
+                "reference": "c8c9c57750cb24e8f7b87bc62fee10750f1f9fbf",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
                 "react/cache": "0.3.*",
-                "react/promise": ">=1.0,<2.0",
+                "react/promise": "~1.0",
                 "react/socket": "0.3.*"
             },
             "type": "library",
@@ -324,17 +287,17 @@
         },
         {
             "name": "react/event-loop",
-            "version": "v0.3.2",
+            "version": "v0.3.3",
             "target-dir": "React/EventLoop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "v0.3.2"
+                "reference": "49208fa3a15c9eae4adf8351ee9caa4064fe550d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/v0.3.2",
-                "reference": "v0.3.2",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/49208fa3a15c9eae4adf8351ee9caa4064fe550d",
+                "reference": "49208fa3a15c9eae4adf8351ee9caa4064fe550d",
                 "shasum": ""
             },
             "require": {
@@ -363,7 +326,7 @@
             "keywords": [
                 "event-loop"
             ],
-            "time": "2013-01-14 23:11:47"
+            "time": "2013-07-08 22:38:22"
         },
         {
             "name": "react/promise",
@@ -415,12 +378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/socket.git",
-                "reference": "v0.3.2"
+                "reference": "9cc32838d25a934ce950d2662cce2ff1b9e9f8aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/socket/zipball/v0.3.2",
-                "reference": "v0.3.2",
+                "url": "https://api.github.com/repos/reactphp/socket/zipball/9cc32838d25a934ce950d2662cce2ff1b9e9f8aa",
+                "reference": "9cc32838d25a934ce950d2662cce2ff1b9e9f8aa",
                 "shasum": ""
             },
             "require": {
@@ -452,17 +415,17 @@
         },
         {
             "name": "react/stream",
-            "version": "v0.3.2",
+            "version": "v0.3.3",
             "target-dir": "React/Stream",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/stream.git",
-                "reference": "v0.3.2"
+                "reference": "b72900ab00513b591fb101faecad38f9c8eab8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/stream/zipball/v0.3.2",
-                "reference": "v0.3.2",
+                "url": "https://api.github.com/repos/reactphp/stream/zipball/b72900ab00513b591fb101faecad38f9c8eab8da",
+                "reference": "b72900ab00513b591fb101faecad38f9c8eab8da",
                 "shasum": ""
             },
             "require": {
@@ -493,7 +456,7 @@
                 "pipe",
                 "stream"
             ],
-            "time": "2013-05-10 15:12:22"
+            "time": "2013-07-09 00:44:12"
         }
     ],
     "packages-dev": [
@@ -504,8 +467,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "clue/socket-react": 20,
-        "clue/promise-react": 20
+        "clue/socket-react": 20
     },
     "platform": [
 
