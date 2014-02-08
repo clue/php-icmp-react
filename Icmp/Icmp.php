@@ -14,6 +14,7 @@ use Socket\React\Datagram\Factory;
 use \Exception;
 use Clue\Promise\React\Timeout;
 use React\EventLoop\Timer\Timer;
+use Socket\React\Datagram\Datagram as Socket;
 
 /**
  * ICMP (Internet Control Message Protocol) bindings for reactphp
@@ -31,12 +32,16 @@ class Icmp extends EventEmitter
 
     private $loop;
 
-    public function __construct(LoopInterface $loop)
+    public function __construct(LoopInterface $loop, Socket $socket = null)
     {
         $this->loop = $loop;
 
-        $factory = new Factory($loop);
-        $this->socket = $factory->createIcmp4();
+        if ($socket === null) {
+            $factory = new Factory($loop);
+            $socket = $factory->createIcmp4();
+        }
+
+        $this->socket = $socket;
         $this->socket->on('message', array($this, 'handleMessage'));
 
         $this->messageFactory = new MessageFactory();
