@@ -10,11 +10,12 @@ use React\Promise\Deferred;
 use React\Promise\When;
 use Evenement\EventEmitter;
 use React\EventLoop\LoopInterface;
-use Socket\React\Datagram\Factory;
+use Socket\React\Datagram\Factory as SocketFactory;
 use \Exception;
 use Clue\Promise\React\Timeout;
 use React\EventLoop\Timer\Timer;
-use Socket\React\Datagram\Datagram as Socket;
+use Socket\React\Datagram\Socket as Socket;
+use Clue\Hexdump\Hexdump;
 
 /**
  * ICMP (Internet Control Message Protocol) bindings for reactphp
@@ -37,7 +38,7 @@ class Icmp extends EventEmitter
         $this->loop = $loop;
 
         if ($socket === null) {
-            $factory = new Factory($loop);
+            $factory = new SocketFactory($loop);
             $socket = $factory->createIcmp4();
         }
 
