@@ -3,6 +3,7 @@
     "description": "Simple async lowlevel ICMP (ping) messages for react",
     "keywords": ["icmp", "ping", "echo request", "socket", "network", "diagnose"],
     "homepage": "https://github.com/clue/icmp-react",
+    "license": "MIT",
     "require": {
         "clue/socket-react": "0.2.*",
         "e-butik/iodophor": "1.*"
