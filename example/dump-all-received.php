@@ -2,8 +2,6 @@
 
 include_once __DIR__.'/../vendor/autoload.php';
 
-$loop = React\EventLoop\Factory::create();
-
 function getTypeText($type)
 {
     $types = array(
@@ -68,7 +66,8 @@ function getCodeText($type, $code)
     return $messages[$type][$code];
 }
 
-$icmp = new Icmp\Icmp($loop);
+$factory = new Icmp\Factory();
+$icmp = $factory->createIcmp4();
 
 $n = 0;
 
@@ -85,4 +84,4 @@ $icmp->on('message', function (Icmp\Message $message, $peerAddress) use (&$n) {
 $icmp->ping('google.com');
 $icmp->ping('yahoo.com');
 
-$loop->run();
+$factory->getLoop()->run();

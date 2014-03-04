@@ -6,9 +6,8 @@ $remote = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'github.com';
 
 $timeout = 3.0;
 
-$loop = React\EventLoop\Factory::create();
-
-$icmp = new Icmp\Icmp($loop);
+$factory = new Icmp\Factory();
+$icmp = $factory->createIcmp4();
 
 echo 'Pinging "' . $remote . '"...' . PHP_EOL;
 $icmp->ping($remote, $timeout)->then(function ($time) use ($icmp) {
@@ -17,4 +16,4 @@ $icmp->ping($remote, $timeout)->then(function ($time) use ($icmp) {
     echo 'Error: ' . $error->getMessage() . PHP_EOL;
 })->then(array($icmp, 'pause'));
 
-$loop->run();
+$factory->getLoop()->run();
