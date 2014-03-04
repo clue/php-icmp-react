@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f82ac8c704666c9232aa19a40c3bf88c",
+    "hash": "fd304fe5953c036bee2b6ef582b3aa3e",
     "packages": [
         {
             "name": "clue/datagram",
-            "version": "v0.2.0",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/datagram.git",
-                "reference": "c49163afa139ac2e686090fe98de0678b9d1f2e8"
+                "reference": "726b8ea3c5259ec61d580944c6f37ad3559dac3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/datagram/zipball/c49163afa139ac2e686090fe98de0678b9d1f2e8",
-                "reference": "c49163afa139ac2e686090fe98de0678b9d1f2e8",
+                "url": "https://api.github.com/repos/clue/datagram/zipball/726b8ea3c5259ec61d580944c6f37ad3559dac3c",
+                "reference": "726b8ea3c5259ec61d580944c6f37ad3559dac3c",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 "server",
                 "udp"
             ],
-            "time": "2013-04-16 10:35:01"
+            "time": "2014-03-03 23:29:41"
         },
         {
             "name": "clue/socket-raw",
@@ -96,20 +96,20 @@
         },
         {
             "name": "clue/socket-react",
-            "version": "dev-master",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/socket-react.git",
-                "reference": "4967532780bd434d3c3ee8ae22608334b74ce5ee"
+                "reference": "e48aa4d37dd2277e5cbff0486509fcdd982c67f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/socket-react/zipball/4967532780bd434d3c3ee8ae22608334b74ce5ee",
-                "reference": "4967532780bd434d3c3ee8ae22608334b74ce5ee",
+                "url": "https://api.github.com/repos/clue/socket-react/zipball/e48aa4d37dd2277e5cbff0486509fcdd982c67f6",
+                "reference": "e48aa4d37dd2277e5cbff0486509fcdd982c67f6",
                 "shasum": ""
             },
             "require": {
-                "clue/datagram": "0.2.*",
+                "clue/datagram": "0.4.*",
                 "clue/socket-raw": "0.1.*",
                 "evenement/evenement": "1.*",
                 "react/event-loop": ">=0.2, <0.4",
@@ -127,9 +127,22 @@
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@lueck.tv"
+                }
+            ],
             "description": "Binding for raw sockets (ext-sockets) in reactphp",
             "homepage": "https://github.com/clue/socket-react",
-            "time": "2014-02-02 16:57:22"
+            "keywords": [
+                "async",
+                "ext-sockets",
+                "low-level",
+                "react",
+                "sockets"
+            ],
+            "time": "2014-03-04 01:41:03"
         },
         {
             "name": "e-butik/iodophor",
@@ -466,9 +479,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "clue/socket-react": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": [
 
     ],

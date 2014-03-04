@@ -4,7 +4,7 @@
     "keywords": ["icmp", "ping", "echo request", "socket", "network", "diagnose"],
     "homepage": "https://github.com/clue/icmp-react",
     "require": {
-        "clue/socket-react": "dev-master",
+        "clue/socket-react": "0.2.*",
         "e-butik/iodophor": "1.*"
     },
     "autoload": {
