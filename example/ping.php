@@ -13,10 +13,8 @@ $icmp = new Icmp\Icmp($loop);
 echo 'Pinging "' . $remote . '"...' . PHP_EOL;
 $icmp->ping($remote, $timeout)->then(function ($time) use ($icmp) {
     echo 'Success after ' . round($time, 3) . 's' . PHP_EOL;
-    $icmp->pause();
 }, function (Exception $error) {
     echo 'Error: ' . $error->getMessage() . PHP_EOL;
-    exit(1);
-});
+})->then(array($icmp, 'pause'));
 
 $loop->run();
