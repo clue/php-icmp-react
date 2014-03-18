@@ -151,7 +151,7 @@ The recommended way to install this library is [through composer](http://getcomp
 ```JSON
 {
     "require": {
-        "clue/icmp-react": "dev-master"
+        "clue/icmp-react": "0.1.*"
     }
 }
 ```
