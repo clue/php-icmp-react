@@ -9,8 +9,8 @@ use \Exception;
 
 class Message
 {
-    const TYPE_ECHO_REQUEST = 8;
-    const TYPE_ECHO_REPLY = 0;
+    const TYPE_ECHO_REQUEST = 128;
+    const TYPE_ECHO_REPLY = 129;
 
     private $type;
 

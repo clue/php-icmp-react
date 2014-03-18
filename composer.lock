@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fd304fe5953c036bee2b6ef582b3aa3e",
+    "hash": "5b260286f93b3f6887afa34200c844ef",
     "packages": [
         {
             "name": "clue/datagram",
@@ -96,16 +96,16 @@
         },
         {
             "name": "clue/socket-react",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/socket-react.git",
-                "reference": "e48aa4d37dd2277e5cbff0486509fcdd982c67f6"
+                "reference": "65251dfebdf8b087772afe0169e11df478e65f51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/socket-react/zipball/e48aa4d37dd2277e5cbff0486509fcdd982c67f6",
-                "reference": "e48aa4d37dd2277e5cbff0486509fcdd982c67f6",
+                "url": "https://api.github.com/repos/clue/socket-react/zipball/65251dfebdf8b087772afe0169e11df478e65f51",
+                "reference": "65251dfebdf8b087772afe0169e11df478e65f51",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
                 "react",
                 "sockets"
             ],
-            "time": "2014-03-04 01:41:03"
+            "time": "2014-03-04 18:53:44"
         },
         {
             "name": "e-butik/iodophor",

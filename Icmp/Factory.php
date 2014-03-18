@@ -30,6 +30,11 @@ class Factory
         return new Icmp($this->loop, $this->socketFactory->createIcmp4());
     }
 
+    public function createIcmp6()
+    {
+        return new Icmp($this->loop, $this->socketFactory->createIcmp6());
+    }
+
     public function getLoop()
     {
         return $this->loop;

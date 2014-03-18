@@ -5,7 +5,7 @@
     "homepage": "https://github.com/clue/icmp-react",
     "license": "MIT",
     "require": {
-        "clue/socket-react": "0.2.*",
+        "clue/socket-react": "0.2.*, >= 0.2.1",
         "e-butik/iodophor": "1.*"
     },
     "autoload": {
