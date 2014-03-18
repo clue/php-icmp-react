@@ -134,8 +134,13 @@ class Icmp extends EventEmitter
 
     public function handleMessage($message, $peer)
     {
-        $ip = substr($message, 0, 20);
-        $icmp = substr($message, 20);
+        if (strpos($peer, ':') === false) {
+            // skip IPv4 header for ICMP (v4)
+            $icmp = substr($message, 20);
+        } else {
+            // ICMPv6 uses a real IPv6 message payload
+            $icmp = $message;
+        }
 
 //         echo 'received from ' . $peer . PHP_EOL;
 //         $hex = new Hexdump();
