@@ -6,7 +6,7 @@ $remote = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : 'github.com';
 
 $timeout = 3.0;
 
-$factory = new Icmp\Factory();
+$factory = new Clue\React\Icmp\Factory();
 $icmp = $factory->createIcmp4();
 
 echo 'Pinging "' . $remote . '"...' . PHP_EOL;

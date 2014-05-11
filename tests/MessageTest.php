@@ -1,7 +1,7 @@
 <?php
 
-use Icmp\Message;
-use Icmp\Icmp;
+use Clue\React\Icmp\Message;
+use Clue\React\Icmp\Icmp;
 use React\EventLoop\Factory;
 
 class MessageTest extends TestCase

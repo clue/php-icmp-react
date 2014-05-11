@@ -1,8 +1,8 @@
 <?php
 
-namespace Icmp;
+namespace Clue\React\Icmp;
 
-use Icmp\Message;
+use Clue\React\Icmp\Message;
 use Iodophor\Io\StringReader;
 use Iodophor\Io\StringWriter;
 use \InvalidArgumentException;

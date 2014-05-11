@@ -4,6 +4,11 @@ This file is a manually maintained list of changes for each release. Feel free
 to add your changes here when sending pull requests. Also send corrections if
 you spot any mistakes.
 
+## 0.2.0 (2014-05-xx)
+
+* BC break: Rename namespace to `Clue\React\Icmp` and use PSR-4 layout
+  ([#4](https://github.com/clue/icmp-react/pull/4))
+
 ## 0.1.0 (2014-03-18)
 
 * First tagged release

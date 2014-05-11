@@ -1,8 +1,8 @@
 <?php
 
-namespace Icmp;
+namespace Clue\React\Icmp;
 
-use Icmp\Icmp;
+use Clue\React\Icmp\Icmp;
 use React\Promise\Deferred;
 use Iodophor\Io\StringWriter;
 use \Exception;

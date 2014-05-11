@@ -1,9 +1,9 @@
 <?php
 
-namespace Icmp;
+namespace Clue\React\Icmp;
 
-use Icmp\MessageFactory;
-use Icmp\Message;
+use Clue\React\Icmp\MessageFactory;
+use Clue\React\Icmp\Message;
 use Iodophor\Io\StringWriter;
 use Iodophor\Io\StringReader;
 use React\Promise\Deferred;

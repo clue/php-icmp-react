@@ -1,6 +1,6 @@
 <?php
 
-namespace Icmp;
+namespace Clue\React\Icmp;
 
 use React\EventLoop\LoopInterface;
 use Socket\React\EventLoop\SocketSelectLoop;

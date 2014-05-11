@@ -9,6 +9,6 @@
         "e-butik/iodophor": "1.*"
     },
     "autoload": {
-        "psr-4": {"Icmp\\": "src"}
+        "psr-4": {"Clue\\React\\Icmp\\": "src"}
     }
 }

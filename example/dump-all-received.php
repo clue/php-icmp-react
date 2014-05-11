@@ -66,12 +66,12 @@ function getCodeText($type, $code)
     return $messages[$type][$code];
 }
 
-$factory = new Icmp\Factory();
+$factory = new Clue\React\Icmp\Factory();
 $icmp = $factory->createIcmp4();
 
 $n = 0;
 
-$icmp->on('message', function (Icmp\Message $message, $peerAddress) use (&$n) {
+$icmp->on('message', function (Clue\React\Icmp\Message $message, $peerAddress) use (&$n) {
     echo 'Message #' . ++$n . ' received from ' . $peerAddress . ':' . PHP_EOL;
     echo 'Type: ' . getTypeText($message->getType()) . ' (' . $message->getType() . ')' . PHP_EOL;
     echo 'Code: ' . getCodeText($message->getType(), $message->getCode()) . ' (' . $message->getCode() . ')' . PHP_EOL;
