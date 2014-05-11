@@ -26,7 +26,7 @@ one).
 
 ### Factory
 
-The `Icmp\Factory` is a convenient wrapper that helps you initialize the correct
+The `Clue\React\Icmp\Factory` is a convenient wrapper that helps you initialize the correct
 loop and an ICMP handler.
 
 #### Simple factory
@@ -37,7 +37,7 @@ you're recommend to let the factory do the work for you and let it create the
 recommended loop implementation:
 
 ```php
-$factory = new Icmp\Factory();
+$factory = new Clue\React\Icmp\Factory();
 $icmp = $factory->createIcmp4();
 ```
 
@@ -67,7 +67,7 @@ factory like this:
 
 ```php
 $loop = React\EventLoop\Factory::create();
-$factory = new Icmp\Factory($loop);
+$factory = new Clue\React\Icmp\Factory($loop);
 ```
 
 While this will allow you to attach any number of streams to the loop, this
@@ -112,7 +112,7 @@ message if it matches the expected ping result. You can also listen to any
 incoming messages yourself like this:
 
 ```php
-$icmp->on('message', function (Icmp\Message $message, $peerAddress) {
+$icmp->on('message', function (Clue\React\Icmp\Message $message, $peerAddress) {
     echo 'Message type ' . $message->getType() . ' from ' . $peerAddress . PHP_EOL;
 });
 ```
@@ -123,13 +123,13 @@ If you want to send arbitrary ICMP messages, you can either construct a
 `Message` object yourself like this
 
 ```php
-$message = new Icmp\Message($type, $code, $checksum, $header, $payload)
+$message = new Clue\React\Icmp\Message($type, $code, $checksum, $header, $payload)
 ```
 
 or you can use the `MessageFactory` to create common types of messages like this
 
 ```php
-$factory = new Icmp\MessageFactory();
+$factory = new Clue\React\Icmp\MessageFactory();
 $message = $factory->createMessagePing();
 ```
 

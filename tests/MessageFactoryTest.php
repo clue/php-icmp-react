@@ -1,7 +1,7 @@
 <?php
 
-use Icmp\MessageFactory;
-use Icmp\Message;
+use Clue\React\Icmp\MessageFactory;
+use Clue\React\Icmp\Message;
 
 class MessageFactoryTest extends TestCase
 {
@@ -26,7 +26,7 @@ class MessageFactoryTest extends TestCase
         //                    checksum        sequence
 
         $message = $this->factory->createFromString($string);
-        $this->assertInstanceOf('Icmp\Message', $message);
+        $this->assertInstanceOf('Clue\React\Icmp\Message', $message);
 
         $this->assertEquals(Message::TYPE_ECHO_REQUEST, $message->getType());
         $this->assertEquals(0, $message->getCode());
@@ -54,7 +54,7 @@ class MessageFactoryTest extends TestCase
     {
         $message = $this->factory->createMessagePing();
 
-        $this->assertInstanceOf('Icmp\Message', $message);
+        $this->assertInstanceOf('Clue\React\Icmp\Message', $message);
 
         $this->assertEquals(Message::TYPE_ECHO_REQUEST, $message->getType());
         $this->assertEquals(0, $message->getCode());
@@ -72,7 +72,7 @@ class MessageFactoryTest extends TestCase
     {
         $message = $this->factory->createMessagePong($ping);
 
-        $this->assertInstanceOf('Icmp\Message', $message);
+        $this->assertInstanceOf('Clue\React\Icmp\Message', $message);
 
         $this->assertEquals(Message::TYPE_ECHO_REPLY, $message->getType());
         $this->assertEquals(0, $message->getCode());

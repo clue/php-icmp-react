@@ -1,6 +1,6 @@
 <?php
 
-use Icmp\Icmp;
+use Clue\React\Icmp\Icmp;
 
 class IcmpTest extends TestCase
 {
@@ -19,7 +19,7 @@ class IcmpTest extends TestCase
             throw $e;
         }
 
-        $this->assertInstanceOf('Icmp\Icmp', $icmp);
+        $this->assertInstanceOf('Clue\React\Icmp\Icmp', $icmp);
 
         return $icmp;
     }

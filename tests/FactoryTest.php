@@ -1,7 +1,8 @@
 <?php
 
-use Icmp\Factory;
+use Clue\React\Icmp\Factory;
 use React\EventLoop\StreamSelectLoop;
+
 class FactoryTest extends TestCase
 {
     public function testConstructor()
@@ -30,7 +31,7 @@ class FactoryTest extends TestCase
             }
             throw $e;
         }
-        $this->assertInstanceOf('Icmp\Icmp', $icmp);
+        $this->assertInstanceOf('Clue\React\Icmp\Icmp', $icmp);
     }
 
     public function testLoopArgument()
