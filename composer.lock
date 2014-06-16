@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "705eac082953e178d65e867e2be8690d",
+    "hash": "adfc5e0bb7ef2b3d8bac890e4d972eaf",
     "packages": [
         {
             "name": "clue/datagram",
@@ -306,17 +307,17 @@
         },
         {
             "name": "react/event-loop",
-            "version": "v0.3.3",
+            "version": "v0.3.4",
             "target-dir": "React/EventLoop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "49208fa3a15c9eae4adf8351ee9caa4064fe550d"
+                "reference": "235cddfa999a392e7d63dc9bef2e042492608d9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/49208fa3a15c9eae4adf8351ee9caa4064fe550d",
-                "reference": "49208fa3a15c9eae4adf8351ee9caa4064fe550d",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/235cddfa999a392e7d63dc9bef2e042492608d9f",
+                "reference": "235cddfa999a392e7d63dc9bef2e042492608d9f",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +346,7 @@
             "keywords": [
                 "event-loop"
             ],
-            "time": "2013-07-08 22:38:22"
+            "time": "2013-07-21 02:23:09"
         },
         {
             "name": "react/promise",

@@ -11,6 +11,8 @@
         }
     ],
     "require": {
+        "react/event-loop": "0.3.*",
+        "react/promise": "~1.0",
         "clue/socket-react": "0.2.*",
         "e-butik/iodophor": "1.*"
     },
