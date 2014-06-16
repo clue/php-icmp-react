@@ -1,9 +1,15 @@
 {
     "name": "clue/icmp-react",
     "description": "Simple async lowlevel ICMP (ping) messages for react",
-    "keywords": ["icmp", "ping", "echo request", "socket", "network", "diagnose"],
-    "homepage": "https://github.com/clue/icmp-react",
+    "keywords": ["icmp", "ping", "echo request", "socket", "network", "diagnose", "ReactPHP", "async"],
+    "homepage": "https://github.com/clue/reactphp-icmp",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Lück",
+            "email": "christian@lueck.tv"
+        }
+    ],
     "require": {
         "clue/socket-react": "0.2.*",
         "e-butik/iodophor": "1.*"

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "fd304fe5953c036bee2b6ef582b3aa3e",
+    "hash": "705eac082953e178d65e867e2be8690d",
     "packages": [
         {
             "name": "clue/datagram",
@@ -50,16 +50,16 @@
         },
         {
             "name": "clue/socket-raw",
-            "version": "v0.1.2",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/socket-raw.git",
-                "reference": "v0.1.2"
+                "reference": "3224fac098e7b49a6de07355e8622a4373dd6a4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/socket-raw/zipball/v0.1.2",
-                "reference": "v0.1.2",
+                "url": "https://api.github.com/repos/clue/socket-raw/zipball/3224fac098e7b49a6de07355e8622a4373dd6a4d",
+                "reference": "3224fac098e7b49a6de07355e8622a4373dd6a4d",
                 "shasum": ""
             },
             "require": {
@@ -68,13 +68,19 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Socket": ""
+                "psr-4": {
+                    "Socket\\Raw\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@lueck.tv"
+                }
             ],
             "description": "Simple and lightweight OOP wrapper for PHP's low level sockets extension (ext-sockets)",
             "homepage": "https://github.com/clue/socket-raw",
@@ -92,25 +98,25 @@
                 "udp",
                 "unix"
             ],
-            "time": "2013-05-09 09:16:48"
+            "time": "2014-05-10 14:11:21"
         },
         {
             "name": "clue/socket-react",
-            "version": "v0.2.0",
+            "version": "v0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clue/socket-react.git",
-                "reference": "e48aa4d37dd2277e5cbff0486509fcdd982c67f6"
+                "reference": "30b03a057cb00b030f2c15d6898dd55b81f97622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clue/socket-react/zipball/e48aa4d37dd2277e5cbff0486509fcdd982c67f6",
-                "reference": "e48aa4d37dd2277e5cbff0486509fcdd982c67f6",
+                "url": "https://api.github.com/repos/clue/socket-react/zipball/30b03a057cb00b030f2c15d6898dd55b81f97622",
+                "reference": "30b03a057cb00b030f2c15d6898dd55b81f97622",
                 "shasum": ""
             },
             "require": {
                 "clue/datagram": "0.4.*",
-                "clue/socket-raw": "0.1.*",
+                "clue/socket-raw": "1.* | 0.1.*",
                 "evenement/evenement": "1.*",
                 "react/event-loop": ">=0.2, <0.4",
                 "react/promise": "1.*",
@@ -119,8 +125,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Socket": ""
+                "psr-4": {
+                    "Socket\\React\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -142,7 +148,7 @@
                 "react",
                 "sockets"
             ],
-            "time": "2014-03-04 01:41:03"
+            "time": "2014-05-10 14:50:10"
         },
         {
             "name": "e-butik/iodophor",
