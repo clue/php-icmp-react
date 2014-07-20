@@ -1,4 +1,4 @@
-# clue/icmp-react [![Build Status](https://travis-ci.org/clue/reactphp-icmp.png?branch=master)](https://travis-ci.org/clue/reactphp-icmp)
+# clue/icmp-react [![Build Status](https://travis-ci.org/clue/php-icmp-react.svg?branch=master)](https://travis-ci.org/clue/php-icmp-react)
 
 Simple async lowlevel ICMP (ping) messaging library built on top of react
 
