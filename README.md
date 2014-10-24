@@ -4,11 +4,11 @@ Simple async lowlevel ICMP (ping) messaging library built on top of react
 
 ## Usage
 
-Once clue/icmp-react is [installed](#install), you can run any of its examples
-via command line like this:
+Once clue/icmp-react is [installed](#install), you can run any of its
+[examples](examples) via command line like this:
 
 ```
-$ sudo php example/ping.php www.google.com
+$ sudo php examples/ping.php www.google.com
 ```
 
 > Note: Please note the `sudo` there. Opening raw ICMP sockets requires root access!
