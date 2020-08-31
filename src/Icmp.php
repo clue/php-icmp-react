@@ -7,7 +7,6 @@ use Clue\React\Icmp\Message;
 use Iodophor\Io\StringWriter;
 use Iodophor\Io\StringReader;
 use React\Promise\Deferred;
-use React\Promise\When;
 use Evenement\EventEmitter;
 use React\EventLoop\LoopInterface;
 use Socket\React\Datagram\Factory as SocketFactory;
@@ -16,6 +15,7 @@ use Clue\Promise\React\Timeout;
 use React\EventLoop\Timer\Timer;
 use Socket\React\Datagram\Socket as Socket;
 use Clue\Hexdump\Hexdump;
+use function React\Promise\resolve;
 
 /**
  * ICMP (Internet Control Message Protocol) bindings for reactphp
@@ -53,7 +53,7 @@ class Icmp extends EventEmitter
      *
      * @param string $remote  remote host or IP address to ping
      * @param float  $timeout maximum time in seconds to wait to receive pong
-     * @return React\Promise\PromiseInterface resolves with ping round trip time (RTT) in seconds or rejects with Exception
+     * @return \React\Promise\PromiseInterface resolves with ping round trip time (RTT) in seconds or rejects with Exception
      */
     public function ping($remote, $timeout = 5.0)
     {
@@ -64,7 +64,10 @@ class Icmp extends EventEmitter
 
         $result = new Deferred();
 
-        $timer = $this->loop->addTimer($timeout, function(Timer $timer) use ($that, $result, &$listener) {
+        $isTimerRunning = true;
+
+        $timer = $this->loop->addTimer($timeout, function(Timer $timer) use ($that, $result, &$listener, &$isTimerRunning) {
+            $isTimerRunning = false;
             if ($listener) {
                 $that->removeListener(Message::TYPE_ECHO_REPLY, $listener);
             }
@@ -78,15 +81,15 @@ class Icmp extends EventEmitter
             $start,
             $timer,
             $result,
-            &$listener
+            &$listener,
+            &$isTimerRunning,
+            $timeout
         ) {
-            if (!$timer->isActive()) {
+            if (!$isTimerRunning) {
                 // timeout occured while resolving hostname => already canceled, so don't even send a message
                 return;
             }
-
             $ping = $messageFactory->createMessagePing();
-
             $that->sendMessage($ping, $remote);
 
             $id       = $ping->getPingId();
@@ -100,11 +103,12 @@ class Icmp extends EventEmitter
                 $that,
                 $result,
                 $timer,
-                $start
+                $start,
+                $timeout
             ) {
                 if ($pong->getPingId() === $id && $pong->getPingSequence() === $sequence) {
                     $that->removeListener(Message::TYPE_ECHO_REPLY, $listener);
-                    $timer->cancel();
+                    $this->loop->cancelTimer($timer);
 
                     $time = microtime(true) - $start;
                     if ($time < 0) {
@@ -168,6 +172,6 @@ class Icmp extends EventEmitter
 
     private function resolve($host)
     {
-        return When::resolve($host);
+        return resolve($host);
     }
 }
