@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3",
+        "php": ">=5.4",
         "react/event-loop": "^1.1",
         "react/promise": "^2.8",
         "clue/socket-react": "dev-master",
